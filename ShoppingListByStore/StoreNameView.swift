@@ -27,11 +27,15 @@ struct StoreNameView: View {
                 .font(.title2)
             List {
                 ForEach(storeNames, id: \.self) { storeName in
-                    Text(storeName)
-                        .onTapGesture {
-                            onChange(storeName)
-                            dismiss()
-                        }
+                    HStack {
+                        Text(storeName)
+                        Spacer()
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        onChange(storeName)
+                        dismiss()
+                }
 //                        .onLongPressGesture {
                             // rename store
 //                        }
