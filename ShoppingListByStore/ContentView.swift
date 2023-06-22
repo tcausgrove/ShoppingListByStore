@@ -21,7 +21,7 @@ struct ContentView: View {
     let alertTitle: String = NSLocalizedString("Remove?", comment: "Check whether we really want to remove items")
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
         AppHeaderView()
             NavigationView {
                 VStack {

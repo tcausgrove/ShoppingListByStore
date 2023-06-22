@@ -35,10 +35,10 @@ struct StoreNameView: View {
                     .onTapGesture {
                         onChange(storeName)
                         dismiss()
-                }
-//                        .onLongPressGesture {
-                            // rename store
-//                        }
+                    }
+//                    .onLongPressGesture {
+                        // rename store
+//                    }
                 }
 //                .onMove { indexSet, offset in storeNames.move(fromOffsets: indexSet, toOffset: offset)}
                 .onDelete { (indexSet) in viewModel.deleteStores(indexSet: indexSet) }

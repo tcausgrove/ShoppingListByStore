@@ -51,7 +51,7 @@ import Foundation
         }
         
         func renameStore(newStoreName: String) {
-            
+            print("renaming store")
         }
         
         func deleteStores(indexSet: IndexSet) {
