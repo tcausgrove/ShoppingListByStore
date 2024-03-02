@@ -25,9 +25,6 @@ struct ContentView: View {
         AppHeaderView()
             NavigationView {
                 VStack {
-//                    EditableList<ListItem, TextField<Text>>($viewModel.selectedStore.items) { $item in
-//                        TextField("Title", text: $item.name)
-//                    }
                     List {
                         ForEach(viewModel.selectedStore.items, id: \..id) { item in
                             ListItemView(item: item, viewModel: viewModel)
@@ -60,6 +57,7 @@ struct ContentView: View {
                     }
                 }
                 .toolbar {
+                    // The delete (trashcan) navigation item
                     ToolbarItem(placement: .navigationBarLeading, content: {
                         Button() {
                         showAlert = true && viewModel.checksExistForStore(store: viewModel.selectedStore)
@@ -67,21 +65,32 @@ struct ContentView: View {
                         Image(systemName: "trash")
                             .padding(.leading)
                     }
+                        // Delete is diabled if there are no checkmarks
+                    .disabled(!viewModel.checksExistForStore(store: viewModel.selectedStore))
+                        // Show the "Do you really want to delete?" alert
                     .alert(alertTitle, isPresented: $showAlert) {
                         Button(role: .destructive, action: {
                                 viewModel.clearItems()
                         }, label: { Text("Delete")})
                         Button("Cancel", role: .cancel, action: { })
-                    } })
+                    }
+                    })
+                    // The store list Navigation item
                     ToolbarItem(placement: .principal, content: {
-                        Button( action: {
+                        Button() {
                             showingStoreList = true
-                        }, label: {
+                        } label: {
                             Text(viewModel.selectedStore.name)
                                 .font(.title2)
-                        })
+                        }
                     })
-                    ToolbarItem(placement: .navigationBarTrailing, content: { EditButton() })
+                    // The "Edit" navigation item
+                    ToolbarItem(placement: .navigationBarTrailing, content: { 
+                        EditButton()
+                        // No Edit button if there are no items
+                            .disabled(viewModel.selectedStore.items.count == 0)
+                    }
+                    )
                 }
                 .environmentObject(viewModel)
                 .sheet(isPresented: $showingStoreList) {
