@@ -19,10 +19,12 @@ struct ContentView: View {
     @State private var newItemName: String = ""
     
     let alertTitle: String = NSLocalizedString("Remove?", comment: "Check whether we really want to remove items")
-
+    let alertDeleteText: String = NSLocalizedString("Delete", comment: "Delete the item(s)")
+    let alertCancelText: String = NSLocalizedString("Cancel", comment: "Don't delete the item(s)")
+    
     var body: some View {
         VStack(spacing: 0) {
-        AppHeaderView()
+            AppHeaderView()
             NavigationView {
                 VStack {
                     List {
@@ -35,62 +37,27 @@ struct ContentView: View {
                         .onDelete { (indexSet) in viewModel.deleteItemsByIndexSet(indexSet: indexSet)}
                         
                         if editingItem {
-                            TextField("", text: $newItemName)
-                                .onAppear(perform: { editingFocused = true })
-                                .focused($editingFocused)
-                                .onSubmit {
-                                    editingItem = false
-                                    if newItemName.isEmpty { return }
-                                    viewModel.addItem(name: newItemName)
-                                    newItemName = ""
-                                }
+                            editingNewItemField
                         } else {
-                            HStack {
-                                Text("+")
-                                Spacer()
-                            }
-                            .contentShape(Rectangle())
-                                .onTapGesture {
-                                    editingItem = true
-                                }
+                            plusItemAtEnd
                         }
                     }
                 }
                 .toolbar {
                     // The delete (trashcan) navigation item
                     ToolbarItem(placement: .navigationBarLeading, content: {
-                        Button() {
-                        showAlert = true && viewModel.checksExistForStore(store: viewModel.selectedStore)
-                    } label: {
-                        Image(systemName: "trash")
-                            .padding(.leading)
-                    }
-                        // Delete is diabled if there are no checkmarks
-                    .disabled(!viewModel.checksExistForStore(store: viewModel.selectedStore))
-                        // Show the "Do you really want to delete?" alert
-                    .alert(alertTitle, isPresented: $showAlert) {
-                        Button(role: .destructive, action: {
-                                viewModel.clearItems()
-                        }, label: { Text("Delete")})
-                        Button("Cancel", role: .cancel, action: { })
-                    }
+                        trashCanAction
                     })
                     // The store list Navigation item
                     ToolbarItem(placement: .principal, content: {
-                        Button() {
-                            showingStoreList = true
-                        } label: {
-                            Text(viewModel.selectedStore.name)
-                                .font(.title2)
-                        }
+                        showStoreListAction
                     })
                     // The "Edit" navigation item
-                    ToolbarItem(placement: .navigationBarTrailing, content: { 
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
                         EditButton()
                         // No Edit button if there are no items
                             .disabled(viewModel.selectedStore.items.count == 0)
-                    }
-                    )
+                    })
                 }
                 .environmentObject(viewModel)
                 .sheet(isPresented: $showingStoreList) {
@@ -101,8 +68,59 @@ struct ContentView: View {
                         viewModel.changeSelectedStore(selectedStoreName: newStoreName)
                     } )
                 }
-            .environmentObject(viewModel)
+                .environmentObject(viewModel)
             }
+        }
+    }
+    
+    var editingNewItemField: some View {
+        TextField("", text: $newItemName)
+            .onAppear(perform: { editingFocused = true })
+            .focused($editingFocused)
+            .onSubmit {
+                editingItem = false
+                if newItemName.isEmpty { return }
+                viewModel.addItem(name: newItemName)
+                newItemName = ""
+            }
+    }
+    
+    var plusItemAtEnd: some View {
+        HStack {
+            Text("+")
+            Spacer()
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            editingItem = true
+        }
+    }
+    
+    var trashCanAction: some View {
+        Button() {
+            showAlert = true && viewModel.checksExistForStore(store: viewModel.selectedStore)
+            print("\(showAlert)")
+        } label: {
+            Image(systemName: "trash")
+                .padding(.leading)
+        }
+        // Delete is diabled if there are no checkmarks
+        .disabled(!viewModel.checksExistForStore(store: viewModel.selectedStore))
+        // Show the "Do you really want to delete?" alert
+        .alert(alertTitle, isPresented: $showAlert) {
+            Button(role: .destructive, action: {
+                viewModel.clearItems()
+            }, label: { Text( alertDeleteText )} )
+            Button(alertCancelText, role: .cancel, action: { })
+        }
+    }
+    
+    var showStoreListAction: some View {
+        Button() {
+            showingStoreList = true
+        } label: {
+            Text(viewModel.selectedStore.name)
+                .font(.title2)
         }
     }
 }

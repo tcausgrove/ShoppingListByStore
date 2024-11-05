@@ -49,8 +49,14 @@ import Foundation
         shoppingData.selectedStoreID = theStore?.id ?? StoreData.example.id
     }
     
-    func renameStore(newStoreName: String) {
-        print("renaming store")
+    func renameStore(oldStoreName: String, newStoreName: String) {
+        var theStoreIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.name == oldStoreName })
+        
+        if theStoreIndex != nil {
+            shoppingData.arrayOfStores[theStoreIndex!].name = newStoreName
+        } else {
+            print("renaming store")
+        }
     }
     
     func deleteStores(indexSet: IndexSet) {

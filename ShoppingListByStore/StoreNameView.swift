@@ -20,6 +20,7 @@ struct StoreNameView: View {
     @State private var addingStore: Bool = false
     @State private var newStoreName = ""
     @FocusState var editingFocused: Bool
+    @State private var editingStoreName: String? = nil
     
     var body: some View {
         VStack {
@@ -28,7 +29,19 @@ struct StoreNameView: View {
             List {
                 ForEach(storeNames, id: \.self) { storeName in
                     HStack {
-                        Text(storeName)
+                        if (editingStoreName == storeName) {
+                            TextField(storeName, text: $newStoreName)
+                                .onAppear(perform: { editingFocused = true })
+                                .focused($editingFocused)
+                                .onSubmit {
+                                    editingStoreName = nil
+                                    viewModel.renameStore(oldStoreName: storeName, newStoreName: newStoreName)
+                                    dismiss()
+                                    // change store name here
+                                }
+                        } else {
+                            Text(storeName)
+                        }
                         Spacer()
                     }
                     .contentShape(Rectangle())
@@ -36,25 +49,16 @@ struct StoreNameView: View {
                         onChange(storeName)
                         dismiss()
                     }
-//                    .onLongPressGesture {
+                    .onLongPressGesture {
                         // rename store
-//                    }
+                        editingStoreName = storeName
+                    }
                 }
 //                .onMove { indexSet, offset in storeNames.move(fromOffsets: indexSet, toOffset: offset)}
                 .onDelete { (indexSet) in viewModel.deleteStores(indexSet: indexSet) }
                 
                 if addingStore {
-                    TextField("", text: $newStoreName)
-                        .onAppear(perform: { editingFocused = true })
-                        .focused($editingFocused)
-                        .onSubmit {
-                            addingStore = false
-                            if !newStoreName.isEmpty { 
-                            onSave(newStoreName)
-                            newStoreName = ""
-                            dismiss()
-                            }
-                        }
+                    addingStoreView
                 } else {
                     Text("+")
                         .onTapGesture {
@@ -73,10 +77,29 @@ struct StoreNameView: View {
         
 //        _storeNameViewModel = StateObject(wrappedValue: StoreNameViewModel())
     }
+    
+    var addingStoreView: some View {
+        TextField("", text: $newStoreName)
+            .onAppear(perform: { editingFocused = true })
+            .focused($editingFocused)
+            .onSubmit {
+                addingStore = false
+                checkForEmptyName()
+            }
+    }
+    
+    func checkForEmptyName() {
+        if !newStoreName.isEmpty {
+        onSave(newStoreName)
+        newStoreName = ""
+        dismiss()
+        }
+    }
 }
 
 struct StoreNameView_Previews: PreviewProvider {
     static var previews: some View {
         StoreNameView(storeNames: ["Preview 1", "Preview 2"], onSave: { _ in }, onChange: { _ in })
+            .environmentObject(ViewModel())
     }
 }
