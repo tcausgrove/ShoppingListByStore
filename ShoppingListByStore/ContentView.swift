@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = ViewModel()
-    @State private var editingItem: Bool = false
+    @State private var editingItem = EditMode.inactive
     @State private var showingStoreList: Bool = false
     @State private var showStoreList: Bool = false
     @State private var showAlert: Bool = false
@@ -23,20 +23,21 @@ struct ContentView: View {
     let alertCancelText: String = NSLocalizedString("Cancel", comment: "Don't delete the item(s)")
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             AppHeaderView()
             NavigationView {
                 VStack {
-                    List {
+                    Form {
                         ForEach(viewModel.selectedStore.items, id: \..id) { item in
-                            ListItemView(item: item, viewModel: viewModel)
+                            ListItemView(item: item)
+                                .environmentObject(viewModel)
                         }
                         .onMove { indexSet, offset in
-                            viewModel.rearrangeItems(indexSet: indexSet, offset: offset)
+                            viewModel.rearrangeItems(from: indexSet, to: offset)
                         }
-                        .onDelete { (indexSet) in viewModel.deleteItemsByIndexSet(indexSet: indexSet)}
-                        
-                        if editingItem {
+                        .onDelete(perform: delete)
+
+                        if editingItem == EditMode.active {
                             editingNewItemField
                         } else {
                             plusItemAtEnd
@@ -53,11 +54,11 @@ struct ContentView: View {
                         showStoreListAction
                     })
                     // The "Edit" navigation item
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        EditButton()
-                        // No Edit button if there are no items
-                            .disabled(viewModel.selectedStore.items.count == 0)
-                    })
+//                    ToolbarItem(placement: .navigationBarTrailing, content: {
+//                        EditButton()
+//                        // No Edit button if there are no items
+//                            .disabled(viewModel.selectedStore.items.count == 0)
+//                    })
                 }
                 .environmentObject(viewModel)
                 .sheet(isPresented: $showingStoreList) {
@@ -72,16 +73,16 @@ struct ContentView: View {
             }
         }
     }
-    
+
     var editingNewItemField: some View {
         TextField("", text: $newItemName)
             .onAppear(perform: { editingFocused = true })
             .focused($editingFocused)
             .onSubmit {
-                editingItem = false
                 if newItemName.isEmpty { return }
                 viewModel.addItem(name: newItemName)
                 newItemName = ""
+                editingItem = EditMode.inactive
             }
     }
     
@@ -92,14 +93,13 @@ struct ContentView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            editingItem = true
+            editingItem = EditMode.active
         }
     }
     
     var trashCanAction: some View {
         Button() {
             showAlert = true && viewModel.checksExistForStore(store: viewModel.selectedStore)
-            print("\(showAlert)")
         } label: {
             Image(systemName: "trash")
                 .padding(.leading)
@@ -123,6 +123,10 @@ struct ContentView: View {
                 .font(.title2)
         }
     }
+    
+    func delete(source: IndexSet) {
+        viewModel.deleteItemsByIndexSet(indexSet: source)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -130,26 +134,5 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         ContentView()
-    }
-}
-
-struct ListItemView: View {
-    var item: ListItem
-    var viewModel: ViewModel
-    
-    var body: some View {
-        HStack {
-            if item.hasCheck {
-                Image(systemName: "checkmark")
-                    .foregroundColor(.green)
-                    .padding(.trailing, 8)
-            }
-            Text(item.name)
-            Spacer()
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            viewModel.toggleCheck(item: item)
-        }
     }
 }

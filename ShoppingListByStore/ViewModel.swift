@@ -50,7 +50,7 @@ import Foundation
     }
     
     func renameStore(oldStoreName: String, newStoreName: String) {
-        var theStoreIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.name == oldStoreName })
+        let theStoreIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.name == oldStoreName })
         
         if theStoreIndex != nil {
             shoppingData.arrayOfStores[theStoreIndex!].name = newStoreName
@@ -63,7 +63,7 @@ import Foundation
         for index in indexSet {
             // check whether we are deleting the current store
             if shoppingData.arrayOfStores[index].id == selectedStore.id {
-                let newStoreIndex = max(0, index - 1)
+                let newStoreIndex = max(0, index - 1)  // set new selected store to next one UP the list (or zero, if deleting the top one)
                 shoppingData.selectedStoreID = shoppingData.arrayOfStores[newStoreIndex].id
             }
             shoppingData.arrayOfStores.remove(at: index)
@@ -77,34 +77,42 @@ import Foundation
     }
     
     func addItem(name: String) {
-        if let store = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+            var newItemList = shoppingData.arrayOfStores[storeIndex].items
             let item = ListItem(id: UUID(), name: name, hasCheck: false)
-            shoppingData.arrayOfStores[store].items.append(item)
-            save()
+            newItemList.append(item)
+            shoppingData.arrayOfStores[storeIndex].items = newItemList
         }
+        save()
     }
     
     func deleteItemsByIndexSet(indexSet: IndexSet) {
-        if let store = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
-            for index in indexSet {
-                shoppingData.arrayOfStores[store].items.remove(at: index)
-            }
-            save()
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+            var newItemList = shoppingData.arrayOfStores[storeIndex].items
+            newItemList.remove(atOffsets: indexSet)
+            shoppingData.arrayOfStores[storeIndex].items = newItemList
         }
+        save()
     }
     
     func deleteItem(item: ListItem) {
-        if let store = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
-            guard let index = shoppingData.arrayOfStores[store].items.firstIndex(of: item) else { return }
-            shoppingData.arrayOfStores[store].items.remove(at: index)
-            save()
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+            var newItemList = shoppingData.arrayOfStores[storeIndex].items
+            guard let index = newItemList.firstIndex(of: item) else { return }
+            print("Index is \(index), item \(newItemList[index].name)")
+            newItemList.remove(at: index)
+            shoppingData.arrayOfStores[storeIndex].items = newItemList
         }
+        save()
     }
     
-    func rearrangeItems(indexSet: IndexSet, offset: Int) {
-        if let store = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
-            shoppingData.arrayOfStores[store].items.move(fromOffsets: indexSet, toOffset: offset)
+    func rearrangeItems(from source: IndexSet, to destination: Int) {
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+            var newItemList = shoppingData.arrayOfStores[storeIndex].items
+            newItemList.move(fromOffsets: source, toOffset: destination)
+            shoppingData.arrayOfStores[storeIndex].items = newItemList
         }
+        save()
     }
     
     func clearItems() {

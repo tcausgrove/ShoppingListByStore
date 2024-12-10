@@ -14,8 +14,8 @@ struct AppHeaderView: View {
             Text(NSLocalizedString("App name", comment: "The overall app name"))
                 .font(.title)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
-                .foregroundColor(.black)
-                .background(.teal)
+//                .foregroundColor(.black)
+                .background(Color(.myAccent))
         }
     }
 }

@@ -11,7 +11,7 @@ struct ShoppingData: Codable, Equatable {
     var selectedStoreID: UUID
     var arrayOfStores: [StoreData]
     
-//    static let example = ShoppingData(selectedStoreID: UUID(), arrayOfStores: [StoreData.example])
+    static let example = ShoppingData(selectedStoreID: UUID(), arrayOfStores: [StoreData.example])
 }
 
 struct StoreData: Codable, Equatable, Identifiable {
