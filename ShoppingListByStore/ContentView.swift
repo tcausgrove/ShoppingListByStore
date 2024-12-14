@@ -9,14 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = ViewModel()
-    @State private var editingItem = EditMode.inactive
     @State private var showingStoreList: Bool = false
     @State private var showStoreList: Bool = false
     @State private var showAlert: Bool = false
-    
-    @FocusState var editingFocused: Bool
-    
-    @State private var newItemName: String = ""
+    @State private var showTheErrorScreen: Bool = false
     
     let alertTitle: String = NSLocalizedString("Remove?", comment: "Check whether we really want to remove items")
     let alertDeleteText: String = NSLocalizedString("Delete", comment: "Delete the item(s)")
@@ -27,40 +23,27 @@ struct ContentView: View {
             AppHeaderView()
             NavigationView {
                 VStack {
-                    Form {
-                        ForEach(viewModel.selectedStore.items, id: \..id) { item in
-                            ListItemView(item: item)
-                                .environmentObject(viewModel)
+                    ItemListView()
+                        .onChange(of: viewModel.userError) {
+                            if viewModel.userError != nil { showTheErrorScreen = true }
                         }
-                        .onMove { indexSet, offset in
-                            viewModel.rearrangeItems(from: indexSet, to: offset)
+                        .alert(viewModel.userError?.description ?? "", isPresented: $showTheErrorScreen) {
+                            ErrorView(errorType: UserError.failedLoading)
                         }
-                        .onDelete(perform: delete)
-
-                        if editingItem == EditMode.active {
-                            editingNewItemField
-                        } else {
-                            plusItemAtEnd
-                        }
-                    }
                 }
                 .toolbar {
-                    // The delete (trashcan) navigation item
-                    ToolbarItem(placement: .navigationBarLeading, content: {
+                    ToolbarItem(placement: .navigationBarLeading, content: { // The delete (trashcan) navigation item
                         trashCanAction
                     })
-                    // The store list Navigation item
-                    ToolbarItem(placement: .principal, content: {
+                    ToolbarItem(placement: .principal, content: { // The store list Navigation item
                         showStoreListAction
                     })
-                    // The "Edit" navigation item
-//                    ToolbarItem(placement: .navigationBarTrailing, content: {
-//                        EditButton()
-//                        // No Edit button if there are no items
-//                            .disabled(viewModel.selectedStore.items.count == 0)
-//                    })
+                    ToolbarItem(placement: .navigationBarTrailing, content: { // The "Edit" navigation item
+                        EditButton()
+                        // No Edit button if there are no items
+                            .disabled(viewModel.selectedStore.items.count == 0)
+                    })
                 }
-                .environmentObject(viewModel)
                 .sheet(isPresented: $showingStoreList) {
                     StoreNameView(storeNames: viewModel.returnStoreNames,
                                   onSave: { returnedStoreNames in
@@ -71,29 +54,6 @@ struct ContentView: View {
                 }
                 .environmentObject(viewModel)
             }
-        }
-    }
-
-    var editingNewItemField: some View {
-        TextField("", text: $newItemName)
-            .onAppear(perform: { editingFocused = true })
-            .focused($editingFocused)
-            .onSubmit {
-                if newItemName.isEmpty { return }
-                viewModel.addItem(name: newItemName)
-                newItemName = ""
-                editingItem = EditMode.inactive
-            }
-    }
-    
-    var plusItemAtEnd: some View {
-        HStack {
-            Text("+")
-            Spacer()
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            editingItem = EditMode.active
         }
     }
     
@@ -122,10 +82,6 @@ struct ContentView: View {
             Text(viewModel.selectedStore.name)
                 .font(.title2)
         }
-    }
-    
-    func delete(source: IndexSet) {
-        viewModel.deleteItemsByIndexSet(indexSet: source)
     }
 }
 

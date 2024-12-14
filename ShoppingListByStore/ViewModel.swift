@@ -9,17 +9,20 @@ import Foundation
 
 @MainActor class ViewModel: ObservableObject {
     @Published private(set) var shoppingData: ShoppingData
-    
+    @Published var userError: UserError? = nil
+
     let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedShoppingList")
     
     init() {
         do {
             let data = try Data(contentsOf: savePath)
             shoppingData = try JSONDecoder().decode(ShoppingData.self, from: data)
+            userError = nil
         } catch {
             let id = UUID()
             let storeData = StoreData(id: id, name: NSLocalizedString("Storename", comment: "The initial store name when nothing is saved"), items: [])
             shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
+            userError = UserError.failedLoading
         }
     }
     
@@ -55,7 +58,6 @@ import Foundation
         if theStoreIndex != nil {
             shoppingData.arrayOfStores[theStoreIndex!].name = newStoreName
         } else {
-            print("renaming store")
         }
     }
     
@@ -77,7 +79,7 @@ import Foundation
     }
     
     func addItem(name: String) {
-        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             var newItemList = shoppingData.arrayOfStores[storeIndex].items
             let item = ListItem(id: UUID(), name: name, hasCheck: false)
             newItemList.append(item)
@@ -87,19 +89,18 @@ import Foundation
     }
     
     func deleteItemsByIndexSet(indexSet: IndexSet) {
-        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             var newItemList = shoppingData.arrayOfStores[storeIndex].items
             newItemList.remove(atOffsets: indexSet)
             shoppingData.arrayOfStores[storeIndex].items = newItemList
+            save()
         }
-        save()
     }
     
     func deleteItem(item: ListItem) {
-        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             var newItemList = shoppingData.arrayOfStores[storeIndex].items
-            guard let index = newItemList.firstIndex(of: item) else { return }
-            print("Index is \(index), item \(newItemList[index].name)")
+            guard let index = newItemList.firstIndex(where: { $0.id == item.id }) else { return }
             newItemList.remove(at: index)
             shoppingData.arrayOfStores[storeIndex].items = newItemList
         }
@@ -107,7 +108,7 @@ import Foundation
     }
     
     func rearrangeItems(from source: IndexSet, to destination: Int) {
-        if let storeIndex = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
+        if let storeIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             var newItemList = shoppingData.arrayOfStores[storeIndex].items
             newItemList.move(fromOffsets: source, toOffset: destination)
             shoppingData.arrayOfStores[storeIndex].items = newItemList
@@ -125,8 +126,8 @@ import Foundation
     }
     
     func toggleCheck(item: ListItem) {
-        if let store = shoppingData.arrayOfStores.firstIndex(of: selectedStore) {
-            if let index = selectedStore.items.firstIndex(of: item) {
+        if let store = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
+            if let index = selectedStore.items.firstIndex(where: { $0.id == item.id }) {
                 var newItem = selectedStore.items[index]
                 newItem.hasCheck.toggle()
                 shoppingData.arrayOfStores[store].items[index] = newItem
@@ -146,8 +147,9 @@ import Foundation
         do {
             let data = try JSONEncoder().encode(shoppingData)
             try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+            userError = nil
         } catch {
-            print("Unable to save data.")
+            userError = UserError.failedSaving
         }
     }
 }

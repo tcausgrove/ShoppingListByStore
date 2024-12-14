@@ -9,9 +9,9 @@ import SwiftUI
 
 struct StoreNameView: View {
     
-    @Environment(\.dismiss) var dismiss
-    
     @EnvironmentObject var viewModel: ViewModel
+
+    @Environment(\.dismiss) var dismiss
     
     var storeNames: [String]
     var onSave: (String) -> Void

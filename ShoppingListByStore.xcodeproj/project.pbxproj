@@ -17,7 +17,9 @@
 		78D171F22996A79A00276578 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F12996A79A00276578 /* DataModel.swift */; };
 		78D171F42996A81600276578 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F32996A81600276578 /* ViewModel.swift */; };
 		78D171F62998251000276578 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F52998251000276578 /* FileManager-DocumentsDirectory.swift */; };
-		78F2E84B2D04D6C300070F35 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E84A2D04D6C300070F35 /* ListItemView.swift */; };
+		78F2E8702D0A44EF00070F35 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E86F2D0A44EF00070F35 /* Enums.swift */; };
+		78F2E8722D0CC28100070F35 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E8712D0CC28100070F35 /* ErrorView.swift */; };
+		78F2E8742D0CE7FE00070F35 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E8732D0CE7FE00070F35 /* ItemListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +35,9 @@
 		78D171F12996A79A00276578 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		78D171F32996A81600276578 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		78D171F52998251000276578 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
-		78F2E84A2D04D6C300070F35 /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
+		78F2E86F2D0A44EF00070F35 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		78F2E8712D0CC28100070F35 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		78F2E8732D0CE7FE00070F35 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,11 +72,13 @@
 			children = (
 				78D171E12996A55D00276578 /* ShoppingListByStoreApp.swift */,
 				78D171E32996A55D00276578 /* ContentView.swift */,
-				78F2E84A2D04D6C300070F35 /* ListItemView.swift */,
-				7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */,
+				78F2E8732D0CE7FE00070F35 /* ItemListView.swift */,
 				78C6AB49299ABDE20045981D /* StoreNameView.swift */,
 				78D171F12996A79A00276578 /* DataModel.swift */,
 				78D171F32996A81600276578 /* ViewModel.swift */,
+				7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */,
+				78F2E8712D0CC28100070F35 /* ErrorView.swift */,
+				78F2E86F2D0A44EF00070F35 /* Enums.swift */,
 				78D171F52998251000276578 /* FileManager-DocumentsDirectory.swift */,
 				78D171E52996A55F00276578 /* Assets.xcassets */,
 				78D171E72996A55F00276578 /* Preview Content */,
@@ -117,7 +123,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					78D171DD2996A55D00276578 = {
 						CreatedOnToolsVersion = 14.2;
@@ -163,11 +169,13 @@
 			files = (
 				78D171F22996A79A00276578 /* DataModel.swift in Sources */,
 				78D171F62998251000276578 /* FileManager-DocumentsDirectory.swift in Sources */,
+				78F2E8742D0CE7FE00070F35 /* ItemListView.swift in Sources */,
 				78D171F42996A81600276578 /* ViewModel.swift in Sources */,
-				78F2E84B2D04D6C300070F35 /* ListItemView.swift in Sources */,
 				78C6AB4A299ABDE20045981D /* StoreNameView.swift in Sources */,
+				78F2E8722D0CC28100070F35 /* ErrorView.swift in Sources */,
 				78D171E42996A55D00276578 /* ContentView.swift in Sources */,
 				7846B7DB29BD2588007D2E58 /* AppHeaderView.swift in Sources */,
+				78F2E8702D0A44EF00070F35 /* Enums.swift in Sources */,
 				78D171E22996A55D00276578 /* ShoppingListByStoreApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +199,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -223,6 +232,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -251,6 +261,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -283,6 +294,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -307,17 +319,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				DEVELOPMENT_TEAM = D4LH7YBWNU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,17 +350,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				DEVELOPMENT_TEAM = D4LH7YBWNU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

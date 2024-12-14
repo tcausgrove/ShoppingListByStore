@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct ShoppingData: Codable, Equatable {
+struct ShoppingData: Codable {
     var selectedStoreID: UUID
     var arrayOfStores: [StoreData]
     
     static let example = ShoppingData(selectedStoreID: UUID(), arrayOfStores: [StoreData.example])
 }
 
-struct StoreData: Codable, Equatable, Identifiable {
+struct StoreData: Codable, Identifiable {
     var id: UUID
     var name: String
     var items: [ListItem]
@@ -22,10 +22,10 @@ struct StoreData: Codable, Equatable, Identifiable {
     static let example = StoreData(id: UUID(), name: "Store #2", items: [])
 }
 
-struct ListItem: Codable, Equatable, Identifiable {
-    var id: UUID
+struct ListItem: Codable, Identifiable {
+    var id = UUID()
     var name: String
     var hasCheck: Bool
     
-    static let example = ListItem(id: UUID(), name: "More food", hasCheck: false)
+    static let example = ListItem(name: "More food", hasCheck: false)
 }

@@ -10,13 +10,10 @@ import SwiftUI
 
 struct AppHeaderView: View {
     var body: some View {
-        ZStack {
-            Text(NSLocalizedString("App name", comment: "The overall app name"))
-                .font(.title)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
-//                .foregroundColor(.black)
-                .background(Color(.myAccent))
-        }
+        Text(NSLocalizedString("App name", comment: "The overall app name"))
+            .font(.title)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+            .background(Color(.myAccent))
     }
 }
 
