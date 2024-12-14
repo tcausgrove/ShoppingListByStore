@@ -24,7 +24,7 @@ struct ContentView: View {
             NavigationView {
                 VStack {
                     ItemListView()
-                        .onChange(of: viewModel.userError) {
+                        .onChange(of: viewModel.userError) {      // Only available in iOS 17+
                             if viewModel.userError != nil { showTheErrorScreen = true }
                         }
                         .alert(viewModel.userError?.description ?? "", isPresented: $showTheErrorScreen) {
