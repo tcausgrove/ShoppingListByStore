@@ -34,18 +34,23 @@ struct ItemListView: View {
                 plusItemAtEnd
             }
         }
+        .onTapGesture {
+            if editingItem == EditMode.active { handleNewItemSubmission() }
+        }
     }
 
     var editingNewItemField: some View {
         TextField("", text: $newItemName)
             .onAppear(perform: { editingFocused = true })
             .focused($editingFocused)
-            .onSubmit {
-                if newItemName.isEmpty { return }
-                viewModel.addItem(name: newItemName)
-                newItemName = ""
-                editingItem = EditMode.inactive
-            }
+            .onSubmit { handleNewItemSubmission() }
+    }
+    
+    func handleNewItemSubmission() {
+        editingItem = EditMode.inactive
+        if newItemName.isEmpty { return }
+        viewModel.addItem(name: newItemName)
+        newItemName = ""
     }
     
     var plusItemAtEnd: some View {

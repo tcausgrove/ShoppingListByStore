@@ -12,7 +12,7 @@ struct AppHeaderView: View {
     var body: some View {
         Text(NSLocalizedString("App name", comment: "The overall app name"))
             .font(.title)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 50, alignment: .center)
             .background(Color(.myAccent))
     }
 }
