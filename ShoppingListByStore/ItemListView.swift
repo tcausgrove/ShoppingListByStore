@@ -12,18 +12,20 @@ struct ItemListView: View {
     
     @State private var editingItem = EditMode.inactive
     @State private var newItemName: String = ""
-    @FocusState var editingFocused: Bool
+    @FocusState var editingFocused: Bool             // This allows editing on one tap instead of two
     
     var body: some View {
         List {
             ForEach(viewModel.selectedStore.items) { item in
                 HStack {
                     if item.hasCheck { showCheck }
-                    Text(item.name)
+                    Text(item.name)                // One option is to enable a switch to TextField here
                     Spacer()
                 }
                 .contentShape(Rectangle())
-                .onTapGesture { viewModel.toggleCheck(item: item) }
+                .onTapGesture {
+                    handleNewItemSubmission()
+                    viewModel.toggleCheck(item: item) }
             }
             .onMove { indexSet, offset in viewModel.rearrangeItems(from: indexSet, to: offset) }
             .onDelete(perform: delete)
@@ -33,9 +35,6 @@ struct ItemListView: View {
             } else {
                 plusItemAtEnd
             }
-        }
-        .onTapGesture {
-            if editingItem == EditMode.active { handleNewItemSubmission() }
         }
     }
 
