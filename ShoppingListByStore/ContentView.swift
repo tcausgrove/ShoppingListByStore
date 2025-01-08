@@ -14,10 +14,6 @@ struct ContentView: View {
     @State private var showAlert: Bool = false
     @State private var showTheErrorScreen: Bool = false
     
-    let alertTitle: String = NSLocalizedString("Remove?", comment: "Check whether we really want to remove items")
-    let alertDeleteText: String = NSLocalizedString("Delete", comment: "Delete the item(s)")
-    let alertCancelText: String = NSLocalizedString("Cancel", comment: "Don't delete the item(s)")
-    
     var body: some View {
         VStack {
             AppHeaderView()
@@ -32,13 +28,16 @@ struct ContentView: View {
                         }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading, content: { // The delete (trashcan) navigation item
+                    ToolbarItem(placement: .navigationBarLeading, content: {
+                        // The delete (trashcan) navigation item
                         trashCanAction
                     })
-                    ToolbarItem(placement: .principal, content: { // The store list Navigation item
+                    ToolbarItem(placement: .principal, content: {
+                        // The store list Navigation item
                         showStoreListAction
                     })
-                    ToolbarItem(placement: .navigationBarTrailing, content: { // The "Edit" navigation item
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                        // The "Edit" navigation item
                         EditButton()
                         // No Edit button if there are no items
                             .disabled(viewModel.selectedStore.items.count == 0)
@@ -61,9 +60,10 @@ struct ContentView: View {
     
     var trashCanAction: some View {
         Button() {
-            showAlert = true && viewModel.checksExistForStore(store: viewModel.selectedStore)
+            showAlert = viewModel.checksExistForStore(store: viewModel.selectedStore)
         } label: {
             Image(systemName: "trash")
+                .accessibilityLabel(viewModel.checksExistForStore(store: viewModel.selectedStore) ? accessibilityDeleteLabel : "")
                 .padding(.leading)
         }
         // Delete is diabled if there are no checkmarks
@@ -82,6 +82,8 @@ struct ContentView: View {
             showingStoreList = true
         } label: {
             Text(viewModel.selectedStore.name)
+                .accessibilityLabel( accessibilityStoreList )
+                .accessibilityValue(viewModel.selectedStore.name)
                 .font(.title2)
         }
     }

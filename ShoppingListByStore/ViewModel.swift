@@ -20,7 +20,7 @@ import Foundation
             userError = nil
         } catch {
             let id = UUID()
-            let storeData = StoreData(id: id, name: NSLocalizedString("Storename", comment: "The initial store name when nothing is saved"), items: [])
+            let storeData = StoreData(id: id, name: defaultStoreName, items: [])
             shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
             userError = UserError.failedLoading
         }
@@ -38,7 +38,7 @@ import Foundation
         let theStore = shoppingData.arrayOfStores.first(where: { $0.id == shoppingData.selectedStoreID }) ?? StoreData.example
         return theStore
     }
-    
+        
     func addStore(newStoreName: String) {
         let id = UUID()
         let newStore = StoreData(id: id, name: newStoreName, items: [])
@@ -72,7 +72,7 @@ import Foundation
         }
         if shoppingData.arrayOfStores.isEmpty {
             let id = UUID()
-            let storeData = StoreData(id: id, name: NSLocalizedString("Storename", comment: "The initial store name when nothing is saved"), items: [])
+            let storeData = StoreData(id: id, name: defaultStoreName, items: [])
             shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
         }
         save()

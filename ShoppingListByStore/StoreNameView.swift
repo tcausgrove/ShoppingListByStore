@@ -24,13 +24,14 @@ struct StoreNameView: View {
     
     var body: some View {
         VStack {
-            Text(NSLocalizedString("Listtitle", comment: "Appears above the list of store names"))
+            Text( aboveStoreNames )
                 .font(.title2)
             List {
                 ForEach(storeNames, id: \.self) { storeName in
                     HStack {
                         if (editingStoreName == storeName) {
                             TextField(storeName, text: $newStoreName)
+                                .accessibilityLabel( accessibilityNewStoreName )
                                 .onAppear(perform: { editingFocused = true })
                                 .focused($editingFocused)
                                 .onSubmit {
@@ -46,7 +47,7 @@ struct StoreNameView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        onChange(storeName)
+                        onChange(storeName)   // Not sure this works right
                         dismiss()
                     }
                     .onLongPressGesture {
@@ -60,22 +61,21 @@ struct StoreNameView: View {
                 if addingStore {
                     addingStoreView
                 } else {
-                    Text("+")
-                        .onTapGesture {
-                            addingStore = true
-                        }
+                    Button(
+                        action: { addingStore = true },
+                        label: { Image(systemName: "plus") }
+                    )
+                    .accessibilityLabel( accessibilityPlusStoreButton )
+                    .accessibilityHint( accessibilityHintPlusStoreButton )
                 }
             }
         }
-        .toolbar { EditButton() }
     }
     
     init(storeNames: [String], onSave: @escaping (String) -> Void, onChange: @escaping (String) -> Void ) {
         self.storeNames = storeNames
         self.onSave = onSave
         self.onChange = onChange
-        
-//        _storeNameViewModel = StateObject(wrappedValue: StoreNameViewModel())
     }
     
     var addingStoreView: some View {

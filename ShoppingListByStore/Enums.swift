@@ -15,9 +15,9 @@ enum UserError: Error {
     var description: String {
         switch self {
         case .failedLoading:
-            return NSLocalizedString("Failed loading", comment: "The error message when loading data doesn't work")
+            return NSLocalizedString("failed_loading", comment: "The error message when loading data doesn't work")
         case .failedSaving:
-            return NSLocalizedString("FailedSaving", comment: "The error message when saving data doesn't work")
+            return NSLocalizedString("failed_saving", comment: "The error message when saving data doesn't work")
         }
     }
 }

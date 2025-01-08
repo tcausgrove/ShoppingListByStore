@@ -15,7 +15,7 @@ struct ErrorView: View {
         RoundedRectangle(cornerRadius: 20)
             .overlay {
                 VStack {
-                    Button(NSLocalizedString("OK", comment: "The only option on an error alert")) {
+                    Button( errorViewOK ) {
                         viewModel.userError = nil
                     }
                     .buttonStyle(.borderedProminent)

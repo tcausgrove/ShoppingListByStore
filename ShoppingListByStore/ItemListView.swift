@@ -20,8 +20,11 @@ struct ItemListView: View {
                 HStack {
                     if item.hasCheck { showCheck }
                     Text(item.name)                // One option is to enable a switch to TextField here
+                        .accessibilityLabel( accessibilityBeforeItemName )
+                        .accessibilityValue("\(item.name)")
                     Spacer()
                 }
+                .accessibilityElement(children: .combine)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     handleNewItemSubmission()
@@ -53,18 +56,25 @@ struct ItemListView: View {
     }
     
     var plusItemAtEnd: some View {
-        HStack {
-            Text("+")
-            Spacer()
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            editingItem = EditMode.active
-        }
+        Button(
+            action: { editingItem = EditMode.active },
+            label: { Image(systemName: "plus") }
+        )
+        .accessibilityLabel( accessibilityNewItem )
+        .accessibilityHint( accessibilityNewItemHint )
+//        HStack {
+//            Text("+")
+//            Spacer()
+//        }
+//        .contentShape(Rectangle())
+//        .onTapGesture {
+//            editingItem = EditMode.active
+//        }
     }
     
     var showCheck: some View {
         Image(systemName: "checkmark")
+            .accessibilityLabel( accessibilityCheckMark )
             .foregroundColor(.green)
             .padding(.trailing, 8)
     }

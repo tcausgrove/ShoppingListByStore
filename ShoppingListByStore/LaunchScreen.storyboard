@@ -25,10 +25,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mgy-uF-KpR">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="124"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="118"/>
                                 <color key="backgroundColor" name="MyAccentColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="124" id="4uG-wL-wcv"/>
+                                    <constraint firstAttribute="height" constant="118" id="nWc-T4-NQE"/>
                                 </constraints>
                             </view>
                         </subviews>
