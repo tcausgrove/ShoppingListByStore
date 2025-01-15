@@ -1,15 +1,22 @@
 #  ShoppingListByStore
 
-## This is second heading
+## Initial project by Tim Causgrove
 
-_This should be italic_
+This app shows separate simple shopping lists for different stores.
 
-**This should be bold**
+## To use the app
 
-- Bullet point 1
-- Bullet point 2
+- Tap on the store name to see a list of stores
+- Tap the "+" to add a new store
+- Tap on a store to set it as the current store
+- Swipe left on a store to delete the store
+- Pull down "List of Stores" to get back to the Shopping List
+- Tap the "+" to add an item
+- Tap an item to toggle the checkmark
+- Tap the trash can to delete all checked items
+- Long press and drag to re-arrange items
+- Swipe left to delete an item regardless of check mark
 
-This [is a link] to a [Specific site][go1]
+The "Edit" button actually does the same thing as long-tap and drag or swipe left, but some users may find it more intuitive to use the button.
 
-[go1] https://google.com
-
+Enjoy!
