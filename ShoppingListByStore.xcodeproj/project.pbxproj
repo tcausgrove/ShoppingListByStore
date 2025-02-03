@@ -18,7 +18,7 @@
 		78D171E92996A55F00276578 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D171E82996A55F00276578 /* Preview Assets.xcassets */; };
 		78D171F22996A79A00276578 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F12996A79A00276578 /* DataModel.swift */; };
 		78D171F42996A81600276578 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F32996A81600276578 /* ViewModel.swift */; };
-		78D171F62998251000276578 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F52998251000276578 /* FileManager-DocumentsDirectory.swift */; };
+		78D171F62998251000276578 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171F52998251000276578 /* Extensions.swift */; };
 		78F2E8702D0A44EF00070F35 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E86F2D0A44EF00070F35 /* Enums.swift */; };
 		78F2E8722D0CC28100070F35 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E8712D0CC28100070F35 /* ErrorView.swift */; };
 		78F2E8742D0CE7FE00070F35 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2E8732D0CE7FE00070F35 /* ItemListView.swift */; };
@@ -27,10 +27,10 @@
 
 /* Begin PBXFileReference section */
 		7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
-		784AA26A29A6F8340067872C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		784AA26C29A6F8480067872C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		78820E292D2ED4E800AA6807 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		78820E772D3708A100AA6807 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		78820E932D51385300AA6807 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		78820E942D514B2900AA6807 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		78C6AB49299ABDE20045981D /* StoreNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreNameView.swift; sourceTree = "<group>"; };
 		78D171DE2996A55D00276578 /* ShoppingListByStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingListByStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78D171E12996A55D00276578 /* ShoppingListByStoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListByStoreApp.swift; sourceTree = "<group>"; };
@@ -39,7 +39,7 @@
 		78D171E82996A55F00276578 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		78D171F12996A79A00276578 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		78D171F32996A81600276578 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		78D171F52998251000276578 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
+		78D171F52998251000276578 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		78F2E86F2D0A44EF00070F35 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		78F2E8712D0CC28100070F35 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		78F2E8732D0CE7FE00070F35 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */,
 				78F2E8712D0CC28100070F35 /* ErrorView.swift */,
 				78F2E86F2D0A44EF00070F35 /* Enums.swift */,
-				78D171F52998251000276578 /* FileManager-DocumentsDirectory.swift */,
+				78D171F52998251000276578 /* Extensions.swift */,
 				78D171E52996A55F00276578 /* Assets.xcassets */,
 				78D171E72996A55F00276578 /* Preview Content */,
 				784AA26B29A6F8340067872C /* Localizable.strings */,
@@ -180,7 +180,7 @@
 			files = (
 				78D171F22996A79A00276578 /* DataModel.swift in Sources */,
 				78820E2A2D2ED4E800AA6807 /* Strings.swift in Sources */,
-				78D171F62998251000276578 /* FileManager-DocumentsDirectory.swift in Sources */,
+				78D171F62998251000276578 /* Extensions.swift in Sources */,
 				78F2E8742D0CE7FE00070F35 /* ItemListView.swift in Sources */,
 				78D171F42996A81600276578 /* ViewModel.swift in Sources */,
 				78C6AB4A299ABDE20045981D /* StoreNameView.swift in Sources */,
@@ -198,8 +198,8 @@
 		784AA26B29A6F8340067872C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				784AA26A29A6F8340067872C /* en */,
-				784AA26C29A6F8480067872C /* de */,
+				78820E932D51385300AA6807 /* de */,
+				78820E942D514B2900AA6807 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				DEVELOPMENT_TEAM = D4LH7YBWNU;
 				ENABLE_PREVIEWS = YES;
@@ -366,7 +366,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				DEVELOPMENT_TEAM = D4LH7YBWNU;
 				ENABLE_PREVIEWS = YES;

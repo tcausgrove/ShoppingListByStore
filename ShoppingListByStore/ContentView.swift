@@ -12,20 +12,14 @@ struct ContentView: View {
     @State private var showingStoreList: Bool = false
     @State private var showStoreList: Bool = false
     @State private var showAlert: Bool = false
-    @State private var showTheErrorScreen: Bool = false
-    
+   
     var body: some View {
         VStack {
             AppHeaderView()
             NavigationView {
                 VStack {
                     ItemListView()
-                        .onChange(of: viewModel.userError) {      // Only available in iOS 17+
-                            if viewModel.userError != nil { showTheErrorScreen = true }
-                        }
-                        .alert(viewModel.userError?.description ?? "", isPresented: $showTheErrorScreen) {
-                            ErrorView(errorType: UserError.failedLoading)
-                        }
+                        .errorAlert($viewModel.userError)
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
@@ -53,7 +47,7 @@ struct ContentView: View {
                     } )
                 }
                 .environmentObject(viewModel)
-            }
+            }        
         }
         .background(Color(.myAccent))
     }
