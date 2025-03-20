@@ -29,10 +29,9 @@
 		7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		78820E292D2ED4E800AA6807 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		78820E772D3708A100AA6807 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
-		78820E932D51385300AA6807 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		78820E942D514B2900AA6807 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		78C6AB49299ABDE20045981D /* StoreNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreNameView.swift; sourceTree = "<group>"; };
-		78D171DE2996A55D00276578 /* ShoppingListByStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingListByStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		78D171DE2996A55D00276578 /* StoreWiseShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreWiseShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78D171E12996A55D00276578 /* ShoppingListByStoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListByStoreApp.swift; sourceTree = "<group>"; };
 		78D171E32996A55D00276578 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		78D171E52996A55F00276578 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,7 +67,7 @@
 		78D171DF2996A55D00276578 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				78D171DE2996A55D00276578 /* ShoppingListByStore.app */,
+				78D171DE2996A55D00276578 /* StoreWiseShoppingList.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,9 +106,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		78D171DD2996A55D00276578 /* ShoppingListByStore */ = {
+		78D171DD2996A55D00276578 /* StoreWiseShoppingList */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 78D171EC2996A55F00276578 /* Build configuration list for PBXNativeTarget "ShoppingListByStore" */;
+			buildConfigurationList = 78D171EC2996A55F00276578 /* Build configuration list for PBXNativeTarget "StoreWiseShoppingList" */;
 			buildPhases = (
 				78D171DA2996A55D00276578 /* Sources */,
 				78D171DB2996A55D00276578 /* Frameworks */,
@@ -119,9 +118,9 @@
 			);
 			dependencies = (
 			);
-			name = ShoppingListByStore;
+			name = StoreWiseShoppingList;
 			productName = ShoppingListByStore;
-			productReference = 78D171DE2996A55D00276578 /* ShoppingListByStore.app */;
+			productReference = 78D171DE2996A55D00276578 /* StoreWiseShoppingList.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -132,7 +131,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					78D171DD2996A55D00276578 = {
 						CreatedOnToolsVersion = 14.2;
@@ -153,7 +152,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				78D171DD2996A55D00276578 /* ShoppingListByStore */,
+				78D171DD2996A55D00276578 /* StoreWiseShoppingList */,
 			);
 		};
 /* End PBXProject section */
@@ -198,7 +197,6 @@
 		784AA26B29A6F8340067872C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				78820E932D51385300AA6807 /* de */,
 				78820E942D514B2900AA6807 /* en */,
 			);
 			name = Localizable.strings;
@@ -211,6 +209,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -273,6 +272,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -332,11 +332,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				DEVELOPMENT_TEAM = D4LH7YBWNU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = StoreWiseShoppingList;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -353,6 +354,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShoppingListByStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -366,11 +371,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				DEVELOPMENT_TEAM = D4LH7YBWNU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = StoreWiseShoppingList;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -387,6 +393,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShoppingListByStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -405,7 +415,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		78D171EC2996A55F00276578 /* Build configuration list for PBXNativeTarget "ShoppingListByStore" */ = {
+		78D171EC2996A55F00276578 /* Build configuration list for PBXNativeTarget "StoreWiseShoppingList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				78D171ED2996A55F00276578 /* Debug */,

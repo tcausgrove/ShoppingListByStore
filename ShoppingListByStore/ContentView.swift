@@ -38,7 +38,6 @@ struct ContentView: View {
                     })
                 }
                 .sheet(isPresented: $showingStoreList) {
-                    //FIXME: Can I move some of below to the StoreNameView file?  Can this be shortenend?
                     StoreNameView(storeNames: viewModel.returnStoreNames,
                                   onSave: { returnedStoreNames in
                         viewModel.addStore(newStoreName:returnedStoreNames) },
