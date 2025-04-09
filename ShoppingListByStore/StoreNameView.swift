@@ -55,8 +55,12 @@ struct StoreNameView: View {
                         editingStoreName = storeName
                     }
                 }
-//                .onMove { indexSet, offset in storeNames.move(fromOffsets: indexSet, toOffset: offset)}
-                .onDelete { (indexSet) in viewModel.deleteStores(indexSet: indexSet) }
+                .onMove { indexSet, offset in
+                    viewModel.rearrangeStores(from: indexSet, to: offset)}
+                .onDelete { (indexSet) in
+                    withAnimation {
+                        viewModel.deleteStores(indexSet: indexSet) }
+                }
                 
                 if addingStore {
                     addingStoreView

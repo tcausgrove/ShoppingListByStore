@@ -115,6 +115,13 @@ import Foundation
         }
         save()
     }
+
+    func rearrangeStores(from source: IndexSet, to destination: Int) {
+            var newStoreList = shoppingData.arrayOfStores
+            newStoreList.move(fromOffsets: source, toOffset: destination)
+            shoppingData.arrayOfStores = newStoreList
+        save()
+    }
     
     func clearItems() {
         for item in selectedStore.items {

@@ -62,14 +62,6 @@ struct ItemListView: View {
         )
         .accessibilityLabel( accessibilityNewItem )
         .accessibilityHint( accessibilityNewItemHint )
-//        HStack {
-//            Text("+")
-//            Spacer()
-//        }
-//        .contentShape(Rectangle())
-//        .onTapGesture {
-//            editingItem = EditMode.active
-//        }
     }
     
     var showCheck: some View {
@@ -80,7 +72,9 @@ struct ItemListView: View {
     }
     
     func delete(source: IndexSet) {
-        viewModel.deleteItemsByIndexSet(indexSet: source)
+        withAnimation {
+            viewModel.deleteItemsByIndexSet(indexSet: source)
+        }
     }
 }
 
