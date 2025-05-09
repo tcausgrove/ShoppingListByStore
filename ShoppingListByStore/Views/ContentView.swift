@@ -17,10 +17,10 @@ struct ContentView: View {
         VStack {
             AppHeaderView()
             NavigationView {
-                VStack {
+//                VStack {
                     ItemListView()
                         .errorAlert($viewModel.userError)
-                }
+//                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
                         // The delete (trashcan) navigation item
