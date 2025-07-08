@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7846B7DB29BD2588007D2E58 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */; };
 		784AA26929A6F8340067872C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 784AA26B29A6F8340067872C /* Localizable.strings */; };
 		78820E2A2D2ED4E800AA6807 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78820E292D2ED4E800AA6807 /* Strings.swift */; };
 		78D171E22996A55D00276578 /* ShoppingListByStoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D171E12996A55D00276578 /* ShoppingListByStoreApp.swift */; };
@@ -22,7 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		78820E292D2ED4E800AA6807 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		78820E942D514B2900AA6807 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		78D171DE2996A55D00276578 /* StoreWiseShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreWiseShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,7 +75,6 @@
 				78F2E8D92D19EE7200070F35 /* LaunchScreen.storyboard */,
 				78D171F12996A79A00276578 /* DataModel.swift */,
 				78D171F32996A81600276578 /* ViewModel.swift */,
-				7846B7DA29BD2588007D2E58 /* AppHeaderView.swift */,
 				78F2E8712D0CC28100070F35 /* ErrorView.swift */,
 				78F2E86F2D0A44EF00070F35 /* Enums.swift */,
 				78D171F52998251000276578 /* Extensions.swift */,
@@ -177,7 +174,6 @@
 				78D171F62998251000276578 /* Extensions.swift in Sources */,
 				78D171F42996A81600276578 /* ViewModel.swift in Sources */,
 				78F2E8722D0CC28100070F35 /* ErrorView.swift in Sources */,
-				7846B7DB29BD2588007D2E58 /* AppHeaderView.swift in Sources */,
 				78F2E8702D0A44EF00070F35 /* Enums.swift in Sources */,
 				78D171E22996A55D00276578 /* ShoppingListByStoreApp.swift in Sources */,
 			);
@@ -326,7 +322,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -364,7 +360,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingListByStore/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -72,7 +72,7 @@ struct StoreNameView: View {
                     } else {
                         Button(
                             action: { addingStore = true },
-                            label: { Image(systemName: "plus") }
+                            label: { Image(systemName: "plus").foregroundColor(.blue) }
                         )
                         .accessibilityLabel( accessibilityPlusStoreButton )
                         .accessibilityHint( accessibilityHintPlusStoreButton )

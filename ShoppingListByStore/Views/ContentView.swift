@@ -17,10 +17,8 @@ struct ContentView: View {
         VStack {
             AppHeaderView()
             NavigationView {
-//                VStack {
                     ItemListView()
                         .errorAlert($viewModel.userError)
-//                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
                         // The delete (trashcan) navigation item
@@ -50,7 +48,6 @@ struct ContentView: View {
         }
         .background(Color(.myAccent))
     }
-    
     var trashCanAction: some View {
         Button() {
             showAlert = viewModel.checksExistForStore(store: viewModel.selectedStore)
@@ -64,12 +61,12 @@ struct ContentView: View {
         // Show the "Do you really want to delete?" alert
         .alert(alertTitle, isPresented: $showAlert) {
             Button(role: .destructive, action: {
-                viewModel.clearItems()
+               viewModel.clearItems()
             }, label: { Text( alertDeleteText )} )
             Button(alertCancelText, role: .cancel, action: { })
         }
     }
-    
+   
     var showStoreListAction: some View {
         Button() {
             showingStoreList = true
@@ -80,6 +77,7 @@ struct ContentView: View {
                 .font(.title2)
         }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
