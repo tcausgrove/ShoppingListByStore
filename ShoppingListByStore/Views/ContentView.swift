@@ -17,33 +17,40 @@ struct ContentView: View {
         VStack {
             AppHeaderView()
             NavigationView {
-                    ItemListView()
-                        .errorAlert($viewModel.userError)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading, content: {
-                        // The delete (trashcan) navigation item
-                        trashCanAction
-                    })
-                    ToolbarItem(placement: .principal, content: {
-                        // The store list Navigation item
-                        showStoreListAction
-                    })
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        // The "Edit" navigation item
-                        EditButton()
-                        // No Edit button if there are no items
-                            .disabled(viewModel.selectedStore.items.count == 0)
-                    })
-                }
-                .sheet(isPresented: $showingStoreList) {
-                    StoreNameView(storeNames: viewModel.returnStoreNames,
-                                  onSave: { returnedStoreNames in
-                        viewModel.addStore(newStoreName:returnedStoreNames) },
-                                  onChange: { newStoreName in
-                        viewModel.changeSelectedStore(selectedStoreName: newStoreName)
-                    } )
-                }
-                .environmentObject(viewModel)
+                ItemListView()
+                    .errorAlert($viewModel.userError)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading, content: {
+                            // The delete (trashcan) navigation item
+                            trashCanAction
+                        })
+                        ToolbarItem(placement: .navigationBarLeading, content: {
+                            // The ShareLink navigation item
+                            let sharedItem = viewModel.returnItemsString(selectedStoreName: viewModel.selectedStore.name)
+                            let previewText = Text("List for \(viewModel.selectedStore.name)")
+                            ShareLink(item: sharedItem, preview: SharePreview(previewText))
+                                .disabled(viewModel.selectedStore.items.count == 0)
+                        })
+                        ToolbarItem(placement: .principal, content: {
+                            // The store list Navigation item
+                            showStoreListAction
+                        })
+                        ToolbarItem(placement: .navigationBarTrailing, content: {
+                            // The "Edit" navigation item
+                            EditButton()
+                            // No Edit button if there are no items
+                                .disabled(viewModel.selectedStore.items.count == 0)
+                        })
+                    }
+                    .sheet(isPresented: $showingStoreList) {
+                        StoreNameView(storeNames: viewModel.returnStoreNames,
+                                      onSave: { returnedStoreNames in
+                            viewModel.addStore(newStoreName:returnedStoreNames) },
+                                      onChange: { newStoreName in
+                            viewModel.changeSelectedStore(selectedStoreName: newStoreName)
+                        } )
+                    }
+                    .environmentObject(viewModel)
             }        
         }
         .background(Color(.myAccent))
@@ -61,12 +68,12 @@ struct ContentView: View {
         // Show the "Do you really want to delete?" alert
         .alert(alertTitle, isPresented: $showAlert) {
             Button(role: .destructive, action: {
-               viewModel.clearItems()
+                viewModel.clearItems()
             }, label: { Text( alertDeleteText )} )
             Button(alertCancelText, role: .cancel, action: { })
         }
     }
-   
+    
     var showStoreListAction: some View {
         Button() {
             showingStoreList = true
@@ -77,7 +84,7 @@ struct ContentView: View {
                 .font(.title2)
         }
     }
-
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

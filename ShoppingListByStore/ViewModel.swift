@@ -52,6 +52,25 @@ import Foundation
         shoppingData.selectedStoreID = theStore?.id ?? StoreData.example.id
     }
     
+    func returnItemsString(selectedStoreName: String) -> String {
+        let theStore = shoppingData.arrayOfStores.first(where: { $0.name == selectedStoreName })
+        var itemString = ""
+        if theStore == nil {
+            return "List not available"
+        }
+        else {
+            for item in theStore!.items {
+                itemString += "- \(item.name)"
+                if item.hasCheck {
+                    itemString += " (checked)\n"
+                } else {
+                    itemString += "\n"
+                }
+            }
+            return itemString
+        }
+    }
+    
     func renameStore(oldStoreName: String, newStoreName: String) {
         let theStoreIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.name == oldStoreName })
         
