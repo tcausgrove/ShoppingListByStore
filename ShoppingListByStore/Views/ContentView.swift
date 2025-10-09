@@ -51,7 +51,7 @@ struct ContentView: View {
                         } )
                     }
                     .environmentObject(viewModel)
-            }        
+            }
         }
         .background(Color(.myAccent))
     }
@@ -84,7 +84,6 @@ struct ContentView: View {
                 .font(.title2)
         }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
