@@ -91,7 +91,7 @@ import Foundation
         }
         if shoppingData.arrayOfStores.isEmpty {
             let id = UUID()
-            let storeData = StoreData(id: id, name: defaultStoreName, items: [])
+            let storeData = StoreData(id: id, name: "My store", items: [])
             shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
         }
         save()
