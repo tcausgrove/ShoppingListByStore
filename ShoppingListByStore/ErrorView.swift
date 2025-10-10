@@ -15,7 +15,7 @@ struct ErrorView: View {
         RoundedRectangle(cornerRadius: 20)
             .overlay {
                 VStack {
-                    Button( errorViewOK ) {
+                    Button( "OK" ) {
                         viewModel.userError = nil
                     }
                     .buttonStyle(.borderedProminent)

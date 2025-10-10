@@ -32,18 +32,3 @@ let aboveStoreNames: String = NSLocalizedString("store_list", comment: "Appears 
 let accessibilityNewStoreName: String = NSLocalizedString("acclabel_renaming_store_new_name", comment: "Used when renaming a store")
 let accessibilityPlusStoreButton: String = NSLocalizedString("acclabel_new_store", comment: "Accessibility label applied to add store plus button")
 let accessibilityHintPlusStoreButton: String = NSLocalizedString("acchint_new_store_name", comment: "Accessibility hint applied to add store plus button")
-
-
-// Strings in AppHeaderView.swift
-
-let headerAppName: String = NSLocalizedString("app_name", comment: "The overall app name")
-
-
-// Strings in ErrorView.swift
-
-let errorViewOK: String = NSLocalizedString("ok_lone_button", comment: "The only option on an error alert")
-
-
-// Strings in ViewModel.swift
-
-let defaultStoreName: String = NSLocalizedString("default_store_name", comment: "The initial store name when nothing is saved")

@@ -20,7 +20,7 @@ import Foundation
             userError = nil
         } catch {
             let id = UUID()
-            let storeData = StoreData(id: id, name: defaultStoreName, items: [])
+            let storeData = StoreData(id: id, name: "My store", items: [])
             shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
 //            userError = UserError.failedLoading
         }

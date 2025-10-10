@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AppHeaderView: View {
     var body: some View {
-        Text( headerAppName )
+        Text( "StoreWiseShoppingList" )
             .font(.title)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 50, alignment: .center)
             .background(Color(.myAccent))
