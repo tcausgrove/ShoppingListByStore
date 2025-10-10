@@ -22,7 +22,7 @@ import Foundation
             let id = UUID()
             let storeData = StoreData(id: id, name: defaultStoreName, items: [])
             shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
-            userError = UserError.failedLoading
+//            userError = UserError.failedLoading
         }
     }
     
