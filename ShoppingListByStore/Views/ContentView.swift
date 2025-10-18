@@ -1,35 +1,38 @@
 //
 //  ContentView.swift
-//  ShoppingListByStore
+//  StoreWiseShoppingList
 //
-//  Created by Timothy Causgrove on 2/10/23.
+//  Created by Timothy Causgrove on 3/29/25.
 //
 
 import SwiftUI
+import SwiftData
+import Defaults
 
 struct ContentView: View {
-    @StateObject var viewModel = ViewModel()
-    @State private var showingStoreList: Bool = false
-    @State private var showStoreList: Bool = false
+    @Environment(\.modelContext) var modelContext
+    @Query var theStores: [StoreData]
+    @Default(.selectedStoreIDKey) var selectedStoreID
+    
+    @State var isShowingStoreSheet: Bool = false
     @State private var showAlert: Bool = false
-   
+
     var body: some View {
         VStack {
             AppHeaderView()
             NavigationView {
-                ItemListView()
-                    .errorAlert($viewModel.userError)
+                ListItemView(store: StoreData.selectedStore(with: modelContext))
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
                             // The delete (trashcan) navigation item
                             trashCanAction
                         })
                         ToolbarItem(placement: .navigationBarLeading, content: {
-                            // The ShareLink navigation item
-                            let sharedItem = viewModel.returnItemsString(selectedStoreName: viewModel.selectedStore.name)
-                            let previewText = Text("List for \(viewModel.selectedStore.name)")
+                            let sharedItem = StoreData.returnItemsString(with: modelContext)
+                            let theStore = StoreData.selectedStore(with: modelContext)
+                            let previewText = "Items for \(theStore.name)"
                             ShareLink(item: sharedItem, preview: SharePreview(previewText))
-                                .disabled(viewModel.selectedStore.items.count == 0)
+                                .disabled(theStore.items.isEmpty)
                         })
                         ToolbarItem(placement: .principal, content: {
                             // The store list Navigation item
@@ -39,57 +42,58 @@ struct ContentView: View {
                             // The "Edit" navigation item
                             EditButton()
                             // No Edit button if there are no items
-                                .disabled(viewModel.selectedStore.items.count == 0)
+                                .disabled(StoreData.selectedStore(with: modelContext).items.count == 0)
                         })
                     }
-                    .sheet(isPresented: $showingStoreList) {
-                        StoreNameView(storeNames: viewModel.returnStoreNames,
-                                      onSave: { returnedStoreNames in
-                            viewModel.addStore(newStoreName:returnedStoreNames) },
-                                      onChange: { newStoreName in
-                            viewModel.changeSelectedStore(selectedStoreName: newStoreName)
-                        } )
-                    }
-                    .environmentObject(viewModel)
             }
         }
-        .background(Color(.myAccent))
-    }
-    var trashCanAction: some View {
-        Button() {
-            showAlert = viewModel.checksExistForStore(store: viewModel.selectedStore)
-        } label: {
-            Image(systemName: "trash")
-                .accessibilityLabel(viewModel.checksExistForStore(store: viewModel.selectedStore) ? accessibilityDeleteLabel : "")
-                .padding(.leading)
-        }
-        // Delete is diabled if there are no checkmarks
-        .disabled(!viewModel.checksExistForStore(store: viewModel.selectedStore))
-        // Show the "Do you really want to delete?" alert
-        .alert(alertTitle, isPresented: $showAlert) {
-            Button(role: .destructive, action: {
-                viewModel.clearItems()
-            }, label: { Text( alertDeleteText )} )
-            Button(alertCancelText, role: .cancel, action: { })
+        .sheet(isPresented: $isShowingStoreSheet) {
+            StoresSheetView()
         }
     }
     
     var showStoreListAction: some View {
         Button() {
-            showingStoreList = true
+            isShowingStoreSheet.toggle()
         } label: {
-            Text(viewModel.selectedStore.name)
-                .accessibilityLabel( accessibilityStoreList )
-                .accessibilityValue(viewModel.selectedStore.name)
+            Text(StoreData.selectedStore(with: modelContext).name)
                 .font(.title2)
         }
     }
+    
+    var trashCanAction: some View {
+        Button() {
+            showAlert = true
+        } label: {
+            Image(systemName: "trash")
+                .accessibilityLabel("")
+                .padding(.leading)
+        }
+        .alert("Remove all checked items?", isPresented: $showAlert) {
+            Button(role: .destructive, action: {
+                let store = StoreData.selectedStore(with: modelContext)
+                for item in store.items {
+                    if item.hasCheck {
+                        if let index = store.items.firstIndex(of: item) {
+                            store.items.remove(at: index)
+                        }
+                    }
+                }
+            }, label: { Text( "Delete them" )} )
+            Button("Cancel", role: .cancel, action: { })
+        }
+        .disabled(StoreData.selectedStore(with: modelContext).items.count == 0)
+    }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    @EnvironmentObject var viewModel: ViewModel
-    
-    static var previews: some View {
-        ContentView()
+#Preview {
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: StoreData.self, configurations: config)
+        
+        return ContentView()
+            .modelContainer(container)
+    } catch {
+        return Text("Can't do it")
     }
 }

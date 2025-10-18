@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-@main
-struct ShoppingListByStoreApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
+//@main
+//struct ShoppingListByStoreApp: App {
+//    var body: some Scene {
+//        WindowGroup {
+//            LegacyContentView()
+//        }
+//    }
+//}

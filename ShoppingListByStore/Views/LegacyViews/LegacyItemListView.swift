@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ItemListView: View {
+struct LegacyItemListView: View {
     @EnvironmentObject var viewModel: ViewModel
     
     @State private var editingItem = EditMode.inactive
@@ -20,7 +20,7 @@ struct ItemListView: View {
                 HStack {
                     if item.hasCheck { showCheck }
                     Text(item.name)                // One option is to enable a switch to TextField here
-                        .accessibilityLabel( accessibilityBeforeItemName )
+                        .accessibilityLabel( "Item" )
                         .accessibilityValue("\(item.name)")
                     Spacer()
                 }
@@ -60,13 +60,13 @@ struct ItemListView: View {
             action: { editingItem = EditMode.active },
             label: { Image(systemName: "plus") }
         )
-        .accessibilityLabel( accessibilityNewItem )
-        .accessibilityHint( accessibilityNewItemHint )
+        .accessibilityLabel( "New item" )
+        .accessibilityHint( "Add new item to current store list" )
     }
     
     var showCheck: some View {
         Image(systemName: "checkmark")
-            .accessibilityLabel( accessibilityCheckMark )
+            .accessibilityLabel( "Checked" )
             .foregroundColor(.green)
             .padding(.trailing, 8)
     }
@@ -79,6 +79,6 @@ struct ItemListView: View {
 }
 
 #Preview {
-    ItemListView()
+    LegacyItemListView()
         .environmentObject(ViewModel())
 }

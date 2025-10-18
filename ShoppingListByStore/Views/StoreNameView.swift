@@ -1,115 +1,36 @@
 //
 //  StoreNameView.swift
-//  ShoppingListByStore
+//  StoreWiseShoppingList
 //
-//  Created by Timothy Causgrove on 2/13/23.
+//  Created by Timothy Causgrove on 10/12/25.
 //
 
 import SwiftUI
 
 struct StoreNameView: View {
+    var previousStore: StoreData
     
-    @EnvironmentObject var viewModel: ViewModel
-    
-    @Environment(\.dismiss) var dismiss
-    
-    var storeNames: [String]
-    var onSave: (String) -> Void
-    var onChange: (String) -> Void
-    
-    @State private var addingStore: Bool = false
-    @State private var newStoreName = ""
-    @FocusState var editingFocused: Bool
-    @State private var editingStoreName: String? = nil
-    @State private var editingItem = EditMode.inactive
-    
+    @State private var isEditing = false
+    @State private var textValue = ""
+
     var body: some View {
-        NavigationView {
-            VStack {
-                Text( aboveStoreNames )
-                    .font(.title2)
-                List {
-                    ForEach(storeNames, id: \.self) { storeName in
-                        HStack {
-                            if (editingStoreName == storeName) {
-                                TextField(storeName, text: $newStoreName)
-                                    .accessibilityLabel( accessibilityNewStoreName )
-                                    .onAppear(perform: { editingFocused = true })
-                                    .focused($editingFocused)
-                                    .onSubmit {
-                                        editingStoreName = nil
-                                        if !newStoreName.isEmpty {
-                                            viewModel.renameStore(oldStoreName: storeName, newStoreName: newStoreName)
-                                        }
-                                        dismiss()
-                                    }
-                            } else {
-                                Text(storeName)
-                            }
-                            Spacer()
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            onChange(storeName)
-                            dismiss()
-                        }
-                        .swipeActions(edge: .leading) {
-                            Button (action: { editingStoreName = storeName }) {
-                                Text("Rename")
-                            }
-                            .tint(.blue)
-                        }
-                    }
-                    .onMove { indexSet, offset in
-                        viewModel.rearrangeStores(from: indexSet, to: offset)}
-                    .onDelete { (indexSet) in
-                        withAnimation {
-                            viewModel.deleteStores(indexSet: indexSet) }
-                    }
-                    
-                    if addingStore {
-                        addingStoreView
-                    } else {
-                        Button(
-                            action: { addingStore = true },
-                            label: { Image(systemName: "plus").foregroundColor(.blue) }
-                        )
-                        .accessibilityLabel( accessibilityPlusStoreButton )
-                        .accessibilityHint( accessibilityHintPlusStoreButton )
-                    }
+        if isEditing {
+            TextField("Enter value", text: $textValue, onCommit: {
+                isEditing = false
+            })
+            .onAppear(perform: { textValue = previousStore.name })
+            .onSubmit { previousStore.name = textValue }
+//            .padding()
+        } else {
+            Text(previousStore.name)
+                .onLongPressGesture {
+                    isEditing = true
                 }
-            }
-        }
-    }
-    
-    init(storeNames: [String], onSave: @escaping (String) -> Void, onChange: @escaping (String) -> Void ) {
-        self.storeNames = storeNames
-        self.onSave = onSave
-        self.onChange = onChange
-    }
-    
-    var addingStoreView: some View {
-        TextField("", text: $newStoreName)
-            .onAppear(perform: { editingFocused = true })
-            .focused($editingFocused)
-            .onSubmit {
-                addingStore = false
-                checkForEmptyName()
-            }
-    }
-    
-    func checkForEmptyName() {
-        if !newStoreName.isEmpty {
-            onSave(newStoreName)
-            newStoreName = ""
-            dismiss()
         }
     }
 }
 
-struct StoreNameView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreNameView(storeNames: ["Preview 1", "Preview 2"], onSave: { _ in }, onChange: { _ in })
-            .environmentObject(ViewModel())
-    }
+#Preview {
+    let previewItem = ListItem(name: "Preview name", hasCheck: false)
+    ItemNameView(previousItem: previewItem)
 }

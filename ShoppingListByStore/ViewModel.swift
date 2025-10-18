@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor class ViewModel: ObservableObject {
-    @Published private(set) var shoppingData: ShoppingData
+    @Published private(set) var shoppingData: LegacyShoppingData
     @Published var userError: UserError? = nil
 
     let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedShoppingList")
@@ -16,12 +16,12 @@ import Foundation
     init() {
         do {
             let data = try Data(contentsOf: savePath)
-            shoppingData = try JSONDecoder().decode(ShoppingData.self, from: data)
+            shoppingData = try JSONDecoder().decode(LegacyShoppingData.self, from: data)
             userError = nil
         } catch {
             let id = UUID()
-            let storeData = StoreData(id: id, name: "My store", items: [])
-            shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
+            let storeData = LegacyStoreData(id: id, name: "My store", items: [])
+            shoppingData = LegacyShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
 //            userError = UserError.failedLoading
         }
     }
@@ -34,14 +34,14 @@ import Foundation
         return storeNames
     }
     
-    var selectedStore: StoreData {
-        let theStore = shoppingData.arrayOfStores.first(where: { $0.id == shoppingData.selectedStoreID }) ?? StoreData.example
+    var selectedStore: LegacyStoreData {
+        let theStore = shoppingData.arrayOfStores.first(where: { $0.id == shoppingData.selectedStoreID }) ?? LegacyStoreData.example
         return theStore
     }
         
     func addStore(newStoreName: String) {
         let id = UUID()
-        let newStore = StoreData(id: id, name: newStoreName, items: [])
+        let newStore = LegacyStoreData(id: id, name: newStoreName, items: [])
         shoppingData.arrayOfStores.append(newStore)
         shoppingData.selectedStoreID = id
         save()
@@ -49,7 +49,7 @@ import Foundation
     
     func changeSelectedStore(selectedStoreName: String) {
         let theStore = shoppingData.arrayOfStores.first(where: { $0.name == selectedStoreName })
-        shoppingData.selectedStoreID = theStore?.id ?? StoreData.example.id
+        shoppingData.selectedStoreID = theStore?.id ?? LegacyStoreData.example.id
     }
     
     func returnItemsString(selectedStoreName: String) -> String {
@@ -91,8 +91,8 @@ import Foundation
         }
         if shoppingData.arrayOfStores.isEmpty {
             let id = UUID()
-            let storeData = StoreData(id: id, name: "My store", items: [])
-            shoppingData = ShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
+            let storeData = LegacyStoreData(id: id, name: "My store", items: [])
+            shoppingData = LegacyShoppingData(selectedStoreID: id, arrayOfStores: [storeData])
         }
         save()
     }
@@ -100,7 +100,7 @@ import Foundation
     func addItem(name: String) {
         if let storeIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             var newItemList = shoppingData.arrayOfStores[storeIndex].items
-            let item = ListItem(id: UUID(), name: name, hasCheck: false)
+            let item = LegacyListItem(id: UUID(), name: name, hasCheck: false)
             newItemList.append(item)
             shoppingData.arrayOfStores[storeIndex].items = newItemList
         }
@@ -116,7 +116,7 @@ import Foundation
         }
     }
     
-    func deleteItem(item: ListItem) {
+    func deleteItem(item: LegacyListItem) {
         if let storeIndex = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             var newItemList = shoppingData.arrayOfStores[storeIndex].items
             guard let index = newItemList.firstIndex(where: { $0.id == item.id }) else { return }
@@ -151,7 +151,7 @@ import Foundation
         save()
     }
     
-    func toggleCheck(item: ListItem) {
+    func toggleCheck(item: LegacyListItem) {
         if let store = shoppingData.arrayOfStores.firstIndex(where: { $0.id == selectedStore.id } ) {
             if let index = selectedStore.items.firstIndex(where: { $0.id == item.id }) {
                 var newItem = selectedStore.items[index]
@@ -162,7 +162,7 @@ import Foundation
         }
     }
     
-    func checksExistForStore(store: StoreData) -> Bool {
+    func checksExistForStore(store: LegacyStoreData) -> Bool {
         for item in store.items {
             if item.hasCheck  { return true }
         }

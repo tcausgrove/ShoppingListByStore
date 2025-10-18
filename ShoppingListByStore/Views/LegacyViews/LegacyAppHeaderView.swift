@@ -1,13 +1,14 @@
 //
 //  AppHeaderView.swift
-//  StoreWiseShoppingList
+//  ShoppingListByStore
 //
-//  Created by Timothy Causgrove on 5/27/25.
+//  Created by Timothy Causgrove on 3/11/23.
 //
 
 import SwiftUI
 
-struct AppHeaderView: View {
+
+struct LegacyAppHeaderView: View {
     var body: some View {
         Text( "StoreWiseShoppingList" )
             .font(.title)
@@ -16,6 +17,8 @@ struct AppHeaderView: View {
     }
 }
 
-#Preview {
-    AppHeaderView()
+struct AppHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        LegacyAppHeaderView()
+    }
 }

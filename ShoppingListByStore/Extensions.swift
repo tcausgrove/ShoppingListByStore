@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Defaults
 
 extension FileManager {
     static var documentsDirectory: URL {
@@ -41,4 +42,9 @@ extension View {
     func errorAlert(_ error: Binding<UserError?>) -> some View {
         self.modifier(ErrorAlert(error: error))
     }
+}
+
+
+extension Defaults.Keys {
+    static let selectedStoreIDKey = Key<UUID?>("selectedStoreIDKey")
 }

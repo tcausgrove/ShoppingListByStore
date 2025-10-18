@@ -7,25 +7,25 @@
 
 import Foundation
 
-struct ShoppingData: Codable {
+struct LegacyShoppingData: Codable {
     var selectedStoreID: UUID
-    var arrayOfStores: [StoreData]
+    var arrayOfStores: [LegacyStoreData]
     
-    static let example = ShoppingData(selectedStoreID: UUID(), arrayOfStores: [StoreData.example])
+    static let example = LegacyShoppingData(selectedStoreID: UUID(), arrayOfStores: [LegacyStoreData.example])
 }
 
-struct StoreData: Codable, Identifiable {
+struct LegacyStoreData: Codable, Identifiable {
     var id: UUID
     var name: String
-    var items: [ListItem]
+    var items: [LegacyListItem]
     
-    static let example = StoreData(id: UUID(), name: "Store #2", items: [])
+    static let example = LegacyStoreData(id: UUID(), name: "Store #2", items: [])
 }
 
-struct ListItem: Codable, Identifiable {
+struct LegacyListItem: Codable, Identifiable {
     var id = UUID()
     var name: String
     var hasCheck: Bool
     
-    static let example = ListItem(name: "More food", hasCheck: false)
+    static let example = LegacyListItem(name: "More food", hasCheck: false)
 }
