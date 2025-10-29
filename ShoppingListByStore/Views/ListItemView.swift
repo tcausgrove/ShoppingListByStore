@@ -11,35 +11,33 @@ import SwiftData
 struct ListItemView: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var store: StoreData
-
+    
     @State private var editingItem = EditMode.inactive
     @State private var newItemName: String = ""
     @FocusState var editingFocused: Bool             // This allows editing on one tap instead of two
-
+    
     var body: some View {
-//        VStack {
-            List {
-                ForEach(store.items) { item in
-                    HStack {
-                        if item.hasCheck { showCheck }
-                        ItemNameView(previousItem: item)
-                            
-                        Spacer()
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        item.toggleCheck()
-                    }
+        List {
+            ForEach(store.items) { item in
+                HStack {
+                    if item.hasCheck { showCheck }
+                    ItemNameView(previousItem: item)
+                    
+                    Spacer()
                 }
-                .onDelete(perform: deleteItems)
-                
-                if editingItem == .active {
-                    editingNewItemField
-                } else {
-                    plusItemAtEnd
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    item.toggleCheck()
                 }
             }
-//        }
+            .onDelete(perform: deleteItems)
+            
+            if editingItem == .active {
+                editingNewItemField
+            } else {
+                plusItemAtEnd
+            }
+        }
     }
     
     var editingNewItemField: some View {
@@ -61,10 +59,9 @@ struct ListItemView: View {
             label: { Image(systemName: "plus").foregroundColor(.blue) }
         )
     }
-
+    
     var showCheck: some View {
         Image(systemName: "checkmark")
-        //            .accessibilityLabel( accessibilityCheckMark )
             .foregroundColor(.green)
             .padding(.trailing, 8)
     }

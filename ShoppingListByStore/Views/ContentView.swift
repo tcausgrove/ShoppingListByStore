@@ -20,6 +20,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             AppHeaderView()
+                .padding(.bottom, -7)
             NavigationView {
                 ListItemView(store: StoreData.selectedStore(with: modelContext))
                     .toolbar {
